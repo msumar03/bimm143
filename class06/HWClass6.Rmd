@@ -1,0 +1,39 @@
+---
+title: "HW Class 6"
+author: "Mehek Sumar"
+date: "2024-10-21"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+>Q. How would you generalize the original code above to work with any set of input
+protein structures?
+
+```{r}
+library(bio3d)
+protein_drug_int <- function(x, y, z) {
+  
+s <- read.pdb(x) 
+s.chain <- trim.pdb(s, chain=y, elety=z)
+s.b <- s.chain$atom$b
+plotb3(s.b, sse=s.chain, typ="l", ylab="Bfactor")
+}
+```
+
+```{r}
+protein_drug_int("4AKE", 'A', 'CA')
+protein_drug_int("1AKE", 'A', 'CA')
+protein_drug_int("1E4Y", 'A', 'CA')
+```
+
+
+
+
+
+The inputs to this function is the PDB file that corresponds to a respective protein structure, the specific protein chain of the protein that was read, and the element type of the PDB structure. 
+
+The function will read the PDB file that correlates with a specific protein structure, provide a subset from the PDB file that was read (specific to the chain and element type), and retrieves the B factor of the atoms from the chain.  
+
+The output of the function is a plot that demonstrates the relationship between Bfactor and residue for a specific protein structure. 
